@@ -2156,6 +2156,10 @@ pub fn tick_receive(
         }
     }
     for e in lan.take_events() {
+        // (the chat switched off: the others' lines are not kept, nor handed to the plugins)
+        if game.chat.disabled && matches!(e, LanEvent::Chat { .. }) {
+            continue;
+        }
         if let LanEvent::Chat { name, text, .. } = &e {
             // (for the plugins' `lan_chat`, a few kept while nobody takes them)
             if game.plugin_chat.len() < 32 {

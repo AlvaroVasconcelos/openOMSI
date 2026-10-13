@@ -757,7 +757,8 @@ fn toggle_set_graphics_and_controls(app: &mut App, id: &str, on: bool, bit: Stri
             Some(("notes", bit))
         }
         "chat" => {
-            app.settings.chat = on;
+            // (never on the App Store build: no chat between players there, see `Settings::load`)
+            app.settings.chat = on && !cfg!(target_os = "ios");
             Some(("chat", bit))
         }
         "name_tags" => {

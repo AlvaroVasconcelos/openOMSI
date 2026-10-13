@@ -366,6 +366,9 @@ pub(crate) fn lan_send(app: &mut App, plugin: &str, to: u32, text: &str) -> Resu
 }
 
 pub(crate) fn lan_chat(app: &mut App, text: &str) -> Result<(), String> {
+    if !app.settings.chat {
+        return Err("the chat is switched off".into());
+    }
     let l = app.net.lan.as_mut().ok_or("no LAN session")?;
     // (the chat's own filter, as for the player's lines; never a `/` command)
     let text = crate::ui::filter_chat(text.trim_start_matches('/'));

@@ -245,8 +245,8 @@ pub(super) fn options_pages(app: &App) -> Vec<Page> {
         slider_row(app, "ui_opacity", "Interface opacity", "How much of the interface's backgrounds shows", &pct),
         switch_row(app, "tooltips", "Name of the button under the mouse", "Shows the name of what the cursor points at"),
         switch_row(app, "notes", "Driving hints", "Why the vehicle does not move, the change due, what a service did: as short notifications"),
-        switch_row(app, "chat", "Chat in online games", "Shows the chat of a LAN session"),
-        slider_row(app, "chat_size", "Chat size", "The chat's texts on top of the interface size (also Ctrl + the mouse wheel over the chat)", &pct),
+        switch_row(app, "chat", "Chat in online games", "Shows the chat of a LAN session").filter(|_| !cfg!(target_os = "ios")),
+        slider_row(app, "chat_size", "Chat size", "The chat's texts on top of the interface size (also Ctrl + the mouse wheel over the chat)", &pct).filter(|_| !cfg!(target_os = "ios")),
         switch_row(app, "name_tags", "Other players' names above their buses", "Shows the names of the other players"),
         Some(opens("Reset all settings...", "Everything but the language, the key bindings and the game folder goes back to how it came", "reset")),
     ]

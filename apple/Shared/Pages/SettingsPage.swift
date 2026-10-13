@@ -269,7 +269,10 @@ struct SettingsPage: View {
             SettingToggle(label: "Frame rate in the corner", key: "show_fps")
             SettingSelect(label: "Performance details", key: "perf_overlay", options: [("off", "Off"), ("compact", "Compact"), ("detailed", "Detailed")])
             SettingToggle(label: "Notes in the top-left corner", key: "notes", fallback: true)
+            #if !os(iOS)
+            // (the App Store build on iPhone and iPad has no chat between players)
             SettingToggle(label: "Chat in online games", key: "chat", fallback: true)
+            #endif
             SettingToggle(label: "Other players' names above their buses", key: "name_tags", fallback: true)
             SectionTitle("Navigator").padding(.top, 8)
             SettingToggle(label: "Navigator (Shift+N: map, schedule, off)", key: "navigator", fallback: true)

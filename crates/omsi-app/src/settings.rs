@@ -485,6 +485,12 @@ impl Settings {
         if let Some(n) = omsi_cfg::flags::OMSI_SAFE_GPU.parse::<u32>().filter(|n| *n > 0) {
             s.apply_safe_gpu(n);
         }
+        // The App Store build has no chat between players, typed or spoken: the store's rules
+        // ask for reporting and blocking of other players with it.
+        if cfg!(target_os = "ios") {
+            s.chat = false;
+            s.voice_chat = false;
+        }
         log::info!("settings from {}: msaa {} af {} ssao {} shadows {} ({}) navigator {} graphics {} post aa {} vsync {} render scale {} boarding {} min object size {} max object distance {} max fps {}", p.display(), s.msaa, s.anisotropy, s.ssao, s.shadows, s.shadow_size, s.navigator, s.graphics, s.post_aa, s.vsync, s.render_scale_text(), s.boarding, s.min_obj_size, s.object_distance(), s.max_fps);
         *LAST.lock() = Some((p, text, s.clone()));
         s
